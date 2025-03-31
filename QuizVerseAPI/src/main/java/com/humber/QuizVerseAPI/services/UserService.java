@@ -19,7 +19,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    //save user to the database - register
+    //register user
     public MyUser registerUser(MyUser user) {
         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
             throw new IllegalArgumentException("Username is already taken");
@@ -33,5 +33,21 @@ public class UserService {
 
         return userRepository.save(newUser); // Save and return the new user
     }
+
+    //register admin
+    public MyUser registerAdmin(MyUser user) {
+        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Username is already taken");
+        }
+
+        // Create a new MyUser instance
+        MyUser newUser = new MyUser();
+        newUser.setUsername(user.getUsername());
+        newUser.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
+        newUser.setRole("ADMIN"); // Assign default role
+
+        return userRepository.save(newUser); // Save and return the new user
+    }
+
 
 }
