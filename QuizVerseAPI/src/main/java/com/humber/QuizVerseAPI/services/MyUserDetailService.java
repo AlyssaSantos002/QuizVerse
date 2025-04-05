@@ -14,7 +14,7 @@ import java.util.Optional;
 public class MyUserDetailService implements UserDetailsService {
 
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     //constructor injection
     public MyUserDetailService(UserRepository userRepository) {
