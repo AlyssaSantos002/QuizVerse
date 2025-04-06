@@ -1,0 +1,7 @@
+.app-container {
+    background-image: linear-gradient(#00111E, #005294, #0073CF);
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    padding: 0 20px;
+}

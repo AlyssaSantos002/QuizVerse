@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useState} from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import './auth.css';
 
 export default function UserRegistration() {
@@ -27,7 +27,7 @@ export default function UserRegistration() {
         try {
             //call api
             const response = await axios.post("/api/auth/register", userData);
-            alert("User registered successfully! Please login to access your account.");
+            alert("User registered successfully!");
             //navigate to login page once successfully registered
             navigate("/login");
         } catch (error) {
@@ -57,7 +57,7 @@ export default function UserRegistration() {
     };
 
     return (
-        <div className="user-registration">
+        <div className="user-reg-container">
             <div className="user-registration-msg">
                 <p> </p>
             </div>
@@ -99,8 +99,11 @@ export default function UserRegistration() {
                             required
                         />
                     </Form.Group>
-                    <div className="auth-btn">
-                        <Button type="submit" variant="primary">Register</Button>
+                    <div className="d-grid gap-2">
+                        <Button type="submit" variant="primary" className="mt-3">Register</Button>
+                    </div>
+                    <div className="link">
+                        <p>Already have an account? Login <Link to="/login">here!</Link></p>
                     </div>
 
                 </Form>

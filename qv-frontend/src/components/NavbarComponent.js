@@ -3,19 +3,32 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-export default function NavbarComponent({ isLoggedIn, setIsLoggedIn }) {
+export default function NavbarComponent({ isLoggedIn, setIsLoggedIn, setUserData }) {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem("isLoggedIn");
-        setIsLoggedIn(false);
-        alert("User logged out successfully.")
-        navigate("/");
+    const handleLogout = async () => {
+        try {
+            await axios.post("/api/auth/logout", {}, { withCredentials: true });
+
+            // Clear state
+            setIsLoggedIn(false);
+            setUserData({ id: "", username: "", role: "" });
+
+            // Clear localStorage
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userData");
+
+            navigate("/login");
+        } catch (err) {
+            console.error("Logout error:", err);
+            alert("Failed to logout.");
+        }
     };
 
     return (
-        <Navbar expand="lg" className="bg-body-tertiary">
+        <Navbar expand="lg" className="bg-body-transparent" data-bs-theme="dark">
             <Container>
                 <Navbar.Brand as={Link} to="/">QuizVerse</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -2,6 +2,10 @@ package com.humber.QuizVerseAPI.controllers;
 
 import com.humber.QuizVerseAPI.models.MyUser;
 import com.humber.QuizVerseAPI.services.UserService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -9,6 +13,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -48,24 +56,43 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody MyUser user) {
         try {
+            //authenticate user
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
-            return ResponseEntity.ok("Login successful for user: " + authentication.getName());
+
+            //get full user info from DB
+            Optional<MyUser> userOp = userService.getUserByUsername(user.getUsername());
+            if (userOp.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+
+            MyUser loggedInUser = userOp.get();
+
+            //return user details (excluding password)
+            Map<String, Object> userInfo = new HashMap<>();
+            userInfo.put("id", loggedInUser.getId());
+            userInfo.put("username", loggedInUser.getUsername());
+            userInfo.put("role", loggedInUser.getRole());
+
+            return ResponseEntity.ok(userInfo);
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser(Authentication authentication) {
-        if (authentication == null || !authentication.isAuthenticated()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Not authenticated");
+    //logout
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
+        // Invalidate the session
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
         }
 
-        String username = authentication.getName();
-        return ResponseEntity.ok("Logged in as: " + username);
+        return ResponseEntity.ok("Logged out successfully!");
     }
+
     // still thinking about it
     //delete user
 }
