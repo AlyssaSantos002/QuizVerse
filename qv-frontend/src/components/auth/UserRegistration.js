@@ -4,15 +4,19 @@ import {useState} from "react";
 import axios from "axios";
 import {Link, useNavigate} from "react-router-dom";
 import './auth.css';
+import ProfileSetup from "./ProfileSetup";
 
 export default function UserRegistration() {
-    //store user data in a useState variable
+    //store userData in useState variable
     const [formData, setFormData] = useState({
         username: "",
         password: "",
         confirmPassword: "",
+        avatar: ""
     });
 
+    //useState variable for the modal
+    const [show, setShow] = useState(false);
     const navigate = useNavigate();
 
     //set useState variables as user inputs/changes data
@@ -23,49 +27,54 @@ export default function UserRegistration() {
         });
     };
 
-    const registerUser = async (userData) => {
-        try {
-            //call api
-            const response = await axios.post("/api/auth/register", userData);
-            alert("User registered successfully!");
-            //navigate to login page once successfully registered
-            navigate("/login");
-        } catch (error) {
-            //check if it's a server response with a message
-            if (error.response && error.response.data) {
-                console.error("Register error:", error.response.data);
-                alert("Error: " + error.response.data);
-            } else {
-                console.error("Register error:", error.message);
-                alert("Error: " + error.message);
-            }
-        }
+    const handleAvatarSelect = (avatarSrc) => {
+        setFormData({
+            ...formData,
+            avatar: avatarSrc.src
+        });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //compare passwords
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
             return;
         }
 
-        //if password matches, store data in formData and pass to registerUser function
-        const {username, password} = formData;
-        registerUser({username, password});
+        if (!formData.avatar) {
+            alert("Please choose an avatar first.");
+            return;
+        }
+
+        const { username, password, avatar } = formData;
+        registerUser({ username, password, avatar });
+    };
+
+    const registerUser = async (userData) => {
+        try {
+            const response = await axios.post("/api/auth/register", userData);
+            alert("User registered successfully!");
+            // navigate to login page when registered successfully
+            navigate("/login");
+        } catch (error) {
+            if (error.response && error.response.data) {
+                alert("Error: " + error.response.data);
+            } else {
+                alert("Error: " + error.message);
+            }
+        }
     };
 
     return (
         <div className="user-reg-container">
             <div className="user-registration-msg">
-                <p> </p>
-            </div>
 
+            </div>
             <div className="user-reg-form">
                 <h2>SIGN UP!</h2>
+                {/*registration form*/}
                 <Form onSubmit={handleSubmit} data-bs-theme="dark">
-
                     <Form.Group className="mb-3" controlId="formGroupUsername">
                         <Form.Label>Username</Form.Label>
                         <Form.Control
@@ -77,6 +86,7 @@ export default function UserRegistration() {
                             required
                         />
                     </Form.Group>
+
                     <Form.Group className="mb-3" controlId="formGroupPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control
@@ -88,7 +98,8 @@ export default function UserRegistration() {
                             required
                         />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
+
+                    <Form.Group className="mb-4" controlId="formGroupConfirmPassword">
                         <Form.Label>Confirm Password</Form.Label>
                         <Form.Control
                             type="password"
@@ -99,15 +110,41 @@ export default function UserRegistration() {
                             required
                         />
                     </Form.Group>
+
+                    <div className="mb-3 text-center">
+                        {/*button to show modal and select profile*/}
+                        <Button variant="secondary" onClick={() => setShow(true)}>
+                            Choose Avatar
+                        </Button>
+                        {formData.avatar && (
+                            <div className="mt-3">
+                                <p>Selected Avatar:</p>
+                                <img
+                                    src={`/avatars/${formData.avatar}`}
+                                    alt="selected avatar"
+                                    className="rounded-circle"
+                                    height="100"
+                                    width="auto"
+                                />
+                            </div>
+                        )}
+                    </div>
+
                     <div className="d-grid gap-2">
                         <Button type="submit" variant="primary" className="mt-3">Register</Button>
                     </div>
-                    <div className="link">
+
+                    <div className="link mt-2">
                         <p>Already have an account? Login <Link to="/login">here!</Link></p>
                     </div>
-
                 </Form>
+
+                <ProfileSetup
+                    show={show}
+                    handleClose={() => setShow(false)}
+                    onAvatarSelect={handleAvatarSelect}
+                />
             </div>
         </div>
-    )
+    );
 }

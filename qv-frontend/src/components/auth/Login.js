@@ -29,11 +29,11 @@ export default function Login({ setIsLoggedIn, setUserData }) {
                 withCredentials: true,
             });
 
-            const { id, username, role } = res.data;
+            const { id, username, role, avatar } = res.data;
 
             //store user info
-            setUserData({ id, username, role });
-            localStorage.setItem("userData", JSON.stringify({ id, username, role }));
+            setUserData({ id, username, role, avatar });
+            localStorage.setItem("userData", JSON.stringify({ id, username, role, avatar }));
             setIsLoggedIn(true);
             localStorage.setItem("isLoggedIn", "true");
 
@@ -48,7 +48,7 @@ export default function Login({ setIsLoggedIn, setUserData }) {
     return (
         <div className="login-container">
             <div className="login-msg">
-                <p> </p>
+                <img src="LoginImg.png" height="500"/>
             </div>
             <div className="login-form">
                 <Form onSubmit={handleSubmit} data-bs-theme="dark">

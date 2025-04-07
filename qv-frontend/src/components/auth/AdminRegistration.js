@@ -3,16 +3,20 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import {useState} from "react";
 import './auth.css';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import ProfileSetup from "./ProfileSetup";
 
 export default function AdminRegistration(){
-    //store user data in a useState variable
+    //store userData in useState variable
     const [formData, setFormData] = useState({
         username: "",
         password: "",
         confirmPassword: "",
+        avatar: ""
     });
 
+    //useState variable for the modal
+    const [show, setShow] = useState(false);
     const navigate = useNavigate();
 
     //set useState variables as user inputs/changes data
@@ -20,6 +24,14 @@ export default function AdminRegistration(){
         setFormData({
             ...formData,
             [e.target.name]: e.target.value,
+        });
+    };
+
+    //set avatar
+    const handleAvatarSelect = (avatarSrc) => {
+        setFormData({
+            ...formData,
+            avatar: avatarSrc.src
         });
     };
 
@@ -41,18 +53,22 @@ export default function AdminRegistration(){
         }
     };
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        //compare passwords
         if (formData.password !== formData.confirmPassword) {
             alert("Passwords do not match");
             return;
         }
 
-        //if password matches, store data in formData and pass to registerUser function
-        const {username, password} = formData;
-        registerAdmin({username, password});
+        if (!formData.avatar) {
+            alert("Please choose an avatar first.");
+            return;
+        }
+
+        const { username, password, avatar } = formData;
+        registerAdmin({ username, password, avatar });
     };
 
     return(
@@ -94,11 +110,36 @@ export default function AdminRegistration(){
                                 required
                             />
                         </Form.Group>
-                        <div className="d-grid">
-                            <Button type="submit" variant="primary" className="mt-3">Register</Button>
-                        </div>
 
+                        <div className="mb-3 text-center">
+                            {/*button to show modal and select profile*/}
+                            <Button variant="secondary" onClick={() => setShow(true)}>
+                                Choose Avatar
+                            </Button>
+                            {formData.avatar && (
+                                <div className="mt-3">
+                                    <p>Selected Avatar:</p>
+                                    <img
+                                        src={`/avatars/${formData.avatar}`}
+                                        alt="selected avatar"
+                                        className="rounded-circle"
+                                        height="100"
+                                        width="auto"
+                                    />
+                                </div>
+                            )}
+                        </div>
+                        {/*register button*/}
+                        <div className="d-grid gap-2">
+                            <Button type="submit" variant="primary">Register</Button>
+                        </div>
                     </Form>
+                    {/*pass the props to ProfileSetup component*/}
+                    <ProfileSetup
+                        show={show}
+                        handleClose={() => setShow(false)}
+                        onAvatarSelect={handleAvatarSelect}
+                    />
                 </div>
             </div>
 

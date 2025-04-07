@@ -16,23 +16,31 @@ export default function AdminDashboard({userData}){
                 <Row>
                     <Col sm={3}>
                         <Nav variant="pills" className="flex-column">
-                            <Nav.Item className="mb-4">
-                                <Nav.Link eventKey="profile">Profile</Nav.Link>
+                            <Nav.Item className="mb-3">
+                                <Nav.Link eventKey="profile" className="text-white">
+                                    PROFILE
+                                </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="mb-4">
-                                <Nav.Link eventKey="backlog">Quiz Approval Backlog</Nav.Link>
+                            <Nav.Item className="mb-3">
+                                <Nav.Link eventKey="backlog" className="text-white">
+                                    QUIZ APPROVAL BACKLOG
+                                </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="mb-4">
-                                <Nav.Link eventKey="qc">Quizzes Created</Nav.Link>
+                            <Nav.Item className="mb-3">
+                                <Nav.Link eventKey="qc" className="text-white">
+                                    QUIZZES CREATED
+                                </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="mb-4">
-                                <Nav.Link eventKey="qh">Quiz History</Nav.Link>
+                            <Nav.Item className="mb-3">
+                                <Nav.Link eventKey="qh" className="text-white">
+                                    QUIZ HISTORY
+                                </Nav.Link>
                             </Nav.Item>
 
                         </Nav>
                     </Col>
                     <Col sm={9}>
-                        <Tab.Content className="bg-light p-3 rounded-3 ms-3">
+                        <Tab.Content className="bg-light p-3 rounded-3">
                             <Tab.Pane eventKey="profile">
                                 <Profile userData={userData}/>
                             </Tab.Pane>

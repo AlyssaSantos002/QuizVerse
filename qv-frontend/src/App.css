@@ -1,7 +1,13 @@
-.app-container {
+body, html{
     background-image: linear-gradient(#00111E, #005294, #0073CF);
+    height: 100%;
+    margin: 0;
+    padding: 0 clamp(5px, 2vw, 20px);
+    background-attachment: fixed;
+    background-size: cover;
     background-repeat: no-repeat;
-    background-position: center;
-    min-height: 100vh;
-    padding: 0 20px;
 }
+
+/*.app-container{*/
+/*    padding-bottom: 20vh;*/
+/*}*/

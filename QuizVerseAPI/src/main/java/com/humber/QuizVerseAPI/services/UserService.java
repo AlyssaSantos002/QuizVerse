@@ -25,11 +25,12 @@ public class UserService {
             throw new IllegalArgumentException("Username is already taken");
         }
 
-        // Create a new MyUser instance
+        //create a new user
         MyUser newUser = new MyUser();
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
-        newUser.setRole("USER"); // Assign default role
+        newUser.setPassword(passwordEncoder.encode(user.getPassword())); //encrypt password
+        newUser.setRole("USER"); //assign default role
+        newUser.setAvatar(user.getAvatar()); //set the user's avatar
 
         return userRepository.save(newUser); // Save and return the new user
     }
@@ -40,11 +41,12 @@ public class UserService {
             throw new IllegalArgumentException("Username is already taken");
         }
 
-        // Create a new MyUser instance
+        // create a new user
         MyUser newUser = new MyUser();
         newUser.setUsername(user.getUsername());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt password
-        newUser.setRole("ADMIN"); // Assign default role
+        newUser.setPassword(passwordEncoder.encode(user.getPassword())); //encrypt password
+        newUser.setRole("ADMIN"); //assign default role
+        newUser.setAvatar(user.getAvatar()); //set the user's avatar
 
         return userRepository.save(newUser); // Save and return the new user
     }

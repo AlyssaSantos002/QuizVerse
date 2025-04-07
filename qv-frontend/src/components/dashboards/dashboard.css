@@ -1,3 +1,8 @@
 .dashboard{
-    margin: 40px 50px;
+    margin: clamp(5px, 5vw, 40px) clamp(5px, 2vw, 30px);
+    padding-bottom: 20vh;
+}
+
+.dash-tab{
+    min-height: 80vh;
 }

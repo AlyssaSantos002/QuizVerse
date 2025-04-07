@@ -74,6 +74,7 @@ public class AuthController {
             userInfo.put("id", loggedInUser.getId());
             userInfo.put("username", loggedInUser.getUsername());
             userInfo.put("role", loggedInUser.getRole());
+            userInfo.put("avatar", loggedInUser.getAvatar());
 
             return ResponseEntity.ok(userInfo);
         } catch (AuthenticationException e) {

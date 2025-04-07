@@ -33,14 +33,16 @@ export default function NavbarComponent({ isLoggedIn, setIsLoggedIn, setUserData
                 <Navbar.Brand as={Link} to="/">QuizVerse</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
+                    <Nav className="ms-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
                         <Nav.Link as={Link} to="/">Search</Nav.Link>
-                        <NavDropdown title="Menu" id="basic-nav-dropdown">
+                        <NavDropdown title="Menu" id="basic-nav-dropdown" align="end">
                             {isLoggedIn ? (
                                 <>
                                     {/* if logged in - dashboard and logout shown as option */}
                                     <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item>
+                                    <NavDropdown.Item as={Link} to="/dashboard">Create a Quiz</NavDropdown.Item>
+                                    <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                                 </>
                             ) : (

@@ -1,7 +1,7 @@
-export default function QuizzesCreated(){
+export default function QuizzesCreated({userData}){
     return(
-        <div>
-            <h1>Quizzes created by the user will show here</h1>
+        <div className="dash-tab">
+            <h1>Quizzes created by {userData.username} will show here</h1>
         </div>
     )
 }

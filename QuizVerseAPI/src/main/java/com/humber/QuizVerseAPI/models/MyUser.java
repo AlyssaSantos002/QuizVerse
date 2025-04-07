@@ -16,4 +16,5 @@ public class MyUser {
     private String username;
     private String password;
     private String role;
+    private String avatar;
 }
