@@ -1,0 +1,25 @@
+.QuizGeneration{
+    background: linear-gradient(to bottom, #00111E, #005294, #0073CF);
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.customize-container{
+    margin-bottom: 2rem;
+    background-color: #20b2aa;
+    border-radius: 2rem;
+    padding: 2rem;
+    margin-Top: 2rem;
+}
+
+.customize-container label{
+    font-Size: 16px;
+    margin-Bottom: 10px;
+    color: black;
+}
+
+.customize-container .dropdown{
+    background-Color:#fff;
+    border-Radius: 2rem;
+    padding: 2rem;
+}
