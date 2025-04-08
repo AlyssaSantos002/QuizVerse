@@ -1,6 +1,5 @@
 package com.humber.QuizVerseAPI.configs;
 
-
 import com.humber.QuizVerseAPI.services.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
