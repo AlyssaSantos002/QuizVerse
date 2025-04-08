@@ -1,8 +1,50 @@
 .dashboard{
-    margin: clamp(5px, 5vw, 40px) clamp(5px, 2vw, 30px);
+    margin: clamp(5px, 5vw, 40px) clamp(3px, 1vw, 30px) 30px;
     padding-bottom: 20vh;
 }
-
+.dashboard-content{
+    display: flex;
+    justify-content: center;
+    margin: 0 clamp(0px, 5vw, 5vw);
+}
+.dashboard-msg{
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+}
 .dash-tab{
     min-height: 80vh;
+    min-width: clamp(24vw, 65vw, 80vw);
+}
+
+.profile{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.profile-info{
+    flex: 1;
+    text-align: center;
+}
+
+.profile-update-form{
+    flex: 2;
+    padding: clamp(5px, 10px, 15px) clamp(10px, 4vw, 20px);
+}
+
+.profile img{
+    margin-bottom: clamp(5px, 3vh, 25px);
+    max-width: clamp(100px, 20vw ,2030px);
+    height: auto;
+}
+
+@media screen and (max-width: 520px){
+    .profile{
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
 }

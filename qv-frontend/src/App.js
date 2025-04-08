@@ -17,6 +17,7 @@ function App() {
         id:"",
         username:"",
         role:"",
+        avatar:""
     });
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
         return localStorage.getItem("isLoggedIn") === "true";
@@ -31,7 +32,7 @@ function App() {
             setUserData(JSON.parse(storedUser));
         } else {
             setIsLoggedIn(false);
-            setUserData({ id: "", username: "", role: "" });
+            setUserData({ id: "", username: "", role: "", avatar:"" });
         }
     }, []);
 
