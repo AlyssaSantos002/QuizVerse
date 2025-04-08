@@ -1,6 +1,6 @@
 import React from "react";
 import {useState} from "react";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation} from 'react-router-dom';
 import "./QuizGeneration.css";
 import axios from "axios";
 import quiz1 from '../home/Quiz1.png'
@@ -11,12 +11,30 @@ const QuizGeneration = () => {
     const [type, setType] = useState('');
     const [numQuestions, setNumQuestions] = useState(10);
     const navigate = useNavigate();
-
+    const location = useLocation();
+    const category = location.state?.category;
+    
+    const getCategoryId = (categoryName) => {
+        const map = {
+            'Science': 17,
+            'Mathematics': 19,
+            'History': 23,
+            'Animals': 27,
+            'Sports': 21,
+            'Music': 12,
+            'Anime & Manga': 31,
+            'Books': 10,
+            'Art': 25,
+            'Computers': 18
+        };
+        return map[categoryName];
+    };
 
     const handleSubmit = async () => {
         try {
             const response = await axios.get('/api/quiz', {
                 params: {
+                    categoryId: getCategoryId(category),
                     difficulty,
                     type,
                     numberOfQuestions: numQuestions,
@@ -31,6 +49,7 @@ const QuizGeneration = () => {
     return (
         <div className="QuizGeneration">
             <h2>Customize your Quiz</h2>
+            <h3>Category : {category}</h3>
 
             <div className="customize-container">
                 <div className="customize-containerLeft">
