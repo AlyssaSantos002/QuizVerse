@@ -1,9 +1,7 @@
-
 .home {
     background: linear-gradient(to bottom, #00111E, #005294, #0073CF);
     min-height: 100vh;
-    padding: 2rem;
-
+    padding: clamp(20px, 4vw, 40px);
 }
 
 .intro-container {
@@ -11,15 +9,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top:2rem;
-    margin-bottom: 1.3rem;
+    margin-top: clamp(20px, 4vw, 30px);
+    margin-bottom: clamp(16px, 4vw, 24px);
 }
 
 .intro-container .image {
     max-width: 90%;
     height: auto;
-    border-radius: 2rem;
-    box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
+    border-radius: 32px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sections {
@@ -28,20 +26,20 @@
 }
 
 .category-container, .quizHistory-container {
-    margin-left: 3rem;
+    margin-left: clamp(20px, 5vw, 48px);
 }
 
-.category-container h4, .quizHistory-container h4{
+.category-container h4, .quizHistory-container h4 {
     color: #cddc39;
 }
 
 .category-scroll {
     display: flex;
-    margin-top: 2rem;
+    margin-top: clamp(20px, 4vw, 30px);
     overflow-x: auto;
     white-space: nowrap;
-    gap: 2rem;
-    padding-bottom: 2rem;
+    gap: clamp(16px, 4vw, 30px);
+    padding-bottom: clamp(20px, 4vw, 30px);
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -53,20 +51,21 @@
 .category {
     background-color: white;
     color: black;
-    padding: .8rem;
+    padding: 15px;
     border-radius: 10px;
-    min-width: 150px;
+    min-width: 140px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .category p {
     margin: 0;
 }
+
 .category:hover {
     background-color: #16a085;
     transform: scale(1.05);
@@ -75,3 +74,4 @@
 .category.active {
     background-color: #1abc9c;
 }
+
