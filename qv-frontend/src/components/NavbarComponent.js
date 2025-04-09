@@ -10,17 +10,19 @@ export default function NavbarComponent({ isLoggedIn, setIsLoggedIn, setUserData
 
     const handleLogout = async () => {
         try {
+            //call logout api
             await axios.post("/api/auth/logout", {}, { withCredentials: true });
 
-            // Clear state
+            //clear state
             setIsLoggedIn(false);
-            setUserData({ id: "", username: "", role: "" });
+            setUserData({ id: "", username: "", role: "", avatar: ""});
 
-            // Clear localStorage
+            //clear localStorage
             localStorage.removeItem("isLoggedIn");
             localStorage.removeItem("userData");
-
+            //navigate to login page when logged out
             navigate("/login");
+          
         } catch (err) {
             console.error("Logout error:", err);
             alert("Failed to logout.");
@@ -41,7 +43,6 @@ export default function NavbarComponent({ isLoggedIn, setIsLoggedIn, setUserData
                                 <>
                                     {/* if logged in - dashboard and logout shown as option */}
                                     <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="/dashboard">Create a Quiz</NavDropdown.Item>
                                     <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
                                 </>

@@ -41,3 +41,9 @@
     text-align: center;
     margin-top: 30px;
 }
+
+.profile-setup-avatar-img{
+    max-height: clamp(80px, 100px, 135px);
+    width: auto;
+
+}

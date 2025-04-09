@@ -28,10 +28,12 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        //permitAll so users and admin can log in and register
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/categories").permitAll()
-                        .requestMatchers("/api/quiz").permitAll()
+                        //only admin can access these endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        //only authenticated will be able to access these endpoints
+                        .requestMatchers("/api/user/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -53,4 +55,17 @@ public class SecurityConfig {
         return config.getAuthenticationManager();
     }
 
+    //configure cors
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 }
