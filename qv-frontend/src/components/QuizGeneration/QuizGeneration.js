@@ -40,7 +40,7 @@ const QuizGeneration = () => {
                     numberOfQuestions: numQuestions,
                 },
             });
-            navigate('/quiz', {state: {questions: response.data}});
+            navigate('/quiz', {state: {questions: response.data, category, difficulty}});
         } catch (err) {
             console.error('Failed to fetch quiz', err);
         }
@@ -49,13 +49,14 @@ const QuizGeneration = () => {
     return (
         <div className="QuizGeneration">
             <h2>Customize your Quiz</h2>
-            <h3>Category : {category}</h3>
 
+            <h3>Category : {category}</h3>
             <div className="customize-container">
                 <div className="customize-containerLeft">
+
                     <label>Difficulty</label>
                     <select value={difficulty} className="dropdown" onChange={(e) => setDifficulty(e.target.value)}>
-                        <option value="">Any Difficulty</option>
+                        <option value="Any Difficulty">Any Difficulty</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -63,7 +64,7 @@ const QuizGeneration = () => {
 
                     <label>Type</label>
                     <select value={type} className="dropdown" onChange={(e) => setType(e.target.value)}>
-                        <option value="">Any Type</option>
+                        <option value="Any Type">Any Type</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
                     </select>
