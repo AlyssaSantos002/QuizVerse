@@ -1,5 +1,4 @@
 .home {
-    background: linear-gradient(to bottom, #00111E, #005294, #0073CF);
     min-height: 100vh;
     padding: clamp(20px, 4vw, 40px);
 }

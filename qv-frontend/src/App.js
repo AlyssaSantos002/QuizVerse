@@ -1,7 +1,7 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router';
 import {useEffect, useState} from "react";
 import "./App.css";
-import Home from "./components/Home";
+import Home from "./components/home/Home";
 import Login from "./components/auth/Login";
 import UserRegistration from "./components/auth/UserRegistration";
 import AdminRegistration from "./components/auth/AdminRegistration";
@@ -10,6 +10,9 @@ import RouteGuard from "./components/RouteGuard";
 import UserDashboard from "./components/dashboards/UserDashboard";
 import NavbarComponent from "./components/NavbarComponent";
 import AdminDashboard from "./components/dashboards/AdminDashboard";
+import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
+import Quiz from "./components/Quiz/Quiz";
+import Result from "./components/Result/Result";
 
 function App() {
     //store user data in a useState variable
@@ -42,6 +45,9 @@ function App() {
               <NavbarComponent isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUserData={setUserData}/>
               <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/generate-quiz" element={<QuizGeneration />} />
+                  <Route path="/quiz" element={<Quiz />} />
+                  <Route path="/result" element={<Result />} />
                   <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserData={setUserData}/>} />
                   <Route path="/register" element={<UserRegistration />} />
                   <Route path="/register/admin" element={<AdminRegistration />} />
