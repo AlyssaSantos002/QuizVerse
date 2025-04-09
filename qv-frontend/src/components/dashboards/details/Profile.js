@@ -2,13 +2,22 @@ import { useState } from 'react';
 import Button from "react-bootstrap/Button";
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
+import ProfileSetup from "../../auth/ProfileSetup";
 
-export default function Profile({ userData }) {
+export default function Profile({ setUserData, userData }) {
     const [username, setUsername] = useState(userData.username);
     const [avatar, setAvatar] = useState(userData.avatar);
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [currentPassword, setCurrentPassword] = useState('');
+    const [showAvatarModal, setShowAvatarModal] = useState(false);
+
+
+    //ensures that submit button is disabled if none of the user details changed
+    const isUnchanged =
+        username === userData.username &&
+        avatar === userData.avatar &&
+        !newPassword;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,10 +27,12 @@ export default function Profile({ userData }) {
             return;
         }
 
+        //store the id in updatedUser
         const updatedUser = {
             id: userData.id,
         };
 
+        //if there's any changes, update updatedUser
         if (username !== userData.username) updatedUser.username = username;
         if (avatar !== userData.avatar) updatedUser.avatar = avatar;
         if (newPassword) updatedUser.password = newPassword;
@@ -34,19 +45,35 @@ export default function Profile({ userData }) {
                     params: newPassword ? { currentPassword } : {},
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    withCredentials: true, // <-- important if you're using cookies/session-based auth
+                    }
                 }
             );
 
-            alert("✅ " + response.data);
-            // Optionally refresh state or UI here
-            window.location.reload();
+            alert(response.data);
+
+            //fetch user again from backend after update
+            //to ensure that the update has reflected on the backend
+            const res = await axios.get(
+                `/api/user/getUser`, {
+                    params: { id: userData.id }
+                });
+            //set userData in localStorage
+            localStorage.setItem("userData", JSON.stringify(res.data));
+            //reset the password fields to empty
+            setNewPassword('');
+            setConfirmPassword('');
+            setCurrentPassword('');
+
+            //update userData useState variable
+            const storedUser = localStorage.getItem("userData");
+            //set the new userData
+            setUserData(JSON.parse(storedUser));
 
         } catch (error) {
-            const errorMsg = error.response?.data || "Something went wrong.";
-            console.error("Update error:", errorMsg);
+            const errorMsg = error.response?.data;
+            console.error("Error updating profile: ", errorMsg);
             alert(errorMsg);
+
         }
     };
 
@@ -55,16 +82,25 @@ export default function Profile({ userData }) {
             <div className="profile">
                 <div className="profile-info">
                     <img
+                        //the avatar will change when user selects a new one
                         src={`/avatars/${avatar}`}
-                        alt={`${username}'s avatar`}
+                        alt={`${userData.username}'s avatar`}
                     />
-                    <div className="mb-3">
-                        {/* Placeholder for future avatar modal */}
-                        <Button variant="secondary">
+                    {/*message will appear when user selects a new avatar*/}
+                    {avatar!== userData.avatar&& (
+                        <div className="text-center">
+                            <p>You have selected a new avatar!
+                                Submit changes to keep avatar.
+                            </p>
+                        </div>
+                    )}
+                    <div className="my-4">
+                        {/*button to show modal for avatar selection */}
+                        <Button variant="secondary" onClick={() => setShowAvatarModal(true)}>
                             Change Avatar
                         </Button>
                     </div>
-                    <h3>{username}</h3>
+                    <h3>{userData.username}</h3>
                     <p>{userData.role}</p>
                 </div>
 
@@ -114,9 +150,18 @@ export default function Profile({ userData }) {
                         </Form.Group>
 
                         <div className="text-center">
-                            <Button type="submit" className="mt-4">Submit Changes</Button>
+                            <Button type="submit" className="mt-4" disabled={isUnchanged}>Submit Changes</Button>
                         </div>
                     </Form>
+
+                    <ProfileSetup
+                        show={showAvatarModal}
+                        handleClose={() => setShowAvatarModal(false)}
+                        onAvatarSelect={(selected) => {
+                            setAvatar(selected.src); // update state with chosen avatar filename
+                            setShowAvatarModal(false);
+                        }}
+                    />
                 </div>
             </div>
         </div>

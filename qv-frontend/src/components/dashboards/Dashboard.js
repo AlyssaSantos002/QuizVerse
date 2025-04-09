@@ -9,7 +9,13 @@ import Backlog from "./details/Backlog";
 import QuizzesCreated from "./details/QuizzesCreated";
 import QuizHistory from "./details/QuizHistory";
 
-export default function AdminDashboard({userData}) {
+export default function Dashboard({setUserData, userData}) {
+    if (!userData) return <div>Loading...</div>;
+
+    const storedUser = localStorage.getItem("userData");
+
+    const isAdmin = userData.role === "ADMIN";
+
     return (
         <div className="dashboard">
             <Tab.Container id="left-tabs-example" defaultActiveKey="profile">
@@ -21,11 +27,13 @@ export default function AdminDashboard({userData}) {
                                     Profile
                                 </Nav.Link>
                             </Nav.Item>
-                            <Nav.Item className="mb-3">
-                                <Nav.Link eventKey="backlog" className="text-white">
-                                    Quiz Approval Backlog
-                                </Nav.Link>
-                            </Nav.Item>
+                            {isAdmin && (
+                                <Nav.Item className="mb-3">
+                                    <Nav.Link eventKey="backlog" className="text-white">
+                                        Quiz Approval Backlog
+                                    </Nav.Link>
+                                </Nav.Item>
+                            )}
                             <Nav.Item className="mb-3">
                                 <Nav.Link eventKey="qc" className="text-white">
                                     Quizzes Created
@@ -43,11 +51,13 @@ export default function AdminDashboard({userData}) {
                         <div className="dashboard-content">
                             <Tab.Content className="bg-light p-3 rounded-3">
                                 <Tab.Pane eventKey="profile">
-                                    <Profile userData={userData}/>
+                                    <Profile setUserData={setUserData} userData={userData}/>
                                 </Tab.Pane>
-                                <Tab.Pane eventKey="backlog">
-                                    <Backlog userData={userData}/>
-                                </Tab.Pane>
+                                {isAdmin && (
+                                    <Tab.Pane eventKey="backlog">
+                                        <Backlog userData={userData} />
+                                    </Tab.Pane>
+                                )}
                                 <Tab.Pane eventKey="qc">
                                     <QuizzesCreated userData={userData}/>
                                 </Tab.Pane>

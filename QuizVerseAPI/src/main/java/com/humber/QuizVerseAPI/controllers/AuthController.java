@@ -2,7 +2,6 @@ package com.humber.QuizVerseAPI.controllers;
 
 import com.humber.QuizVerseAPI.models.MyUser;
 import com.humber.QuizVerseAPI.services.UserService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -12,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -54,12 +54,18 @@ public class AuthController {
 
     //custom login
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody MyUser user) {
+    public ResponseEntity<?> login(@RequestBody MyUser user, HttpServletRequest request) {
         try {
             //authenticate user
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
+            // Store authentication in security context
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // create session and store context
+            HttpSession session = request.getSession(true);
+            session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
 
             //get full user info from DB
             Optional<MyUser> userOp = userService.getUserByUsername(user.getUsername());

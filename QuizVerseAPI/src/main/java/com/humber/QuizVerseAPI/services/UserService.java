@@ -52,8 +52,8 @@ public class UserService {
     }
 
     //update user
-    public String updateUser(String currentUsername, MyUser updatedUser, String currentPassword) {
-        return getUserByUsername(currentUsername)
+    public String updateUserById(String id, MyUser updatedUser, String currentPassword) {
+        return userRepository.findById(id)
                 .map(user -> {
                     boolean hasChanges = false;
 
@@ -90,9 +90,13 @@ public class UserService {
                 .orElse("User not found.");
     }
 
-    //get user details
+    //get user details by username
     public Optional<MyUser> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    public Optional<MyUser> getUserById(String id) {
+        return userRepository.findById(id);
     }
 
 

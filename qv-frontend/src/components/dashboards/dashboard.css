@@ -36,9 +36,10 @@
 
 .profile img{
     margin-bottom: clamp(5px, 3vh, 25px);
-    max-width: clamp(100px, 20vw ,2030px);
+    max-width: clamp(100px, 20vw ,430px);
     height: auto;
 }
+
 
 @media screen and (max-width: 520px){
     .profile{
