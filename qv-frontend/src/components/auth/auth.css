@@ -45,4 +45,5 @@
 .profile-setup-avatar-img{
     max-height: clamp(80px, 100px, 135px);
     width: auto;
+
 }

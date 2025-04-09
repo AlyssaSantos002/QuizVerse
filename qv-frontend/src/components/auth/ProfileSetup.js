@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 
 //function to render the avatars
 function SelectAvatar({onSelect}){
+
     //store the filenames of the avatar images
     const avatars=[
         {src: "female1.png"}, {src: "female2.png"}, {src: "female3.png"}, {src: "female4.png"},

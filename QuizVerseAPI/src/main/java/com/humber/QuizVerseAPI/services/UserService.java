@@ -56,7 +56,7 @@ public class UserService {
         return userRepository.findById(id)
                 .map(user -> {
                     boolean hasChanges = false;
-
+                    
                     if (updatedUser.getUsername() != null &&
                             !updatedUser.getUsername().isBlank() &&
                             !updatedUser.getUsername().equals(user.getUsername())) {
@@ -98,8 +98,4 @@ public class UserService {
     public Optional<MyUser> getUserById(String id) {
         return userRepository.findById(id);
     }
-
-
-
-
 }

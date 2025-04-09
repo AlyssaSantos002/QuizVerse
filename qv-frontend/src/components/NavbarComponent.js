@@ -22,6 +22,7 @@ export default function NavbarComponent({ isLoggedIn, setIsLoggedIn, setUserData
             localStorage.removeItem("userData");
             //navigate to login page when logged out
             navigate("/login");
+          
         } catch (err) {
             console.error("Logout error:", err);
             alert("Failed to logout.");
