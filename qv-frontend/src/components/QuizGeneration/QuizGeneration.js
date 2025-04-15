@@ -55,7 +55,7 @@ const QuizGeneration = () => {
                 <div className="customize-containerLeft">
 
                     <label>Difficulty</label>
-                    <select value={difficulty} className="dropdown" onChange={(e) => setDifficulty(e.target.value)}>
+                    <select value={difficulty} className="Dropdown" onChange={(e) => setDifficulty(e.target.value)}>
                         <option value="Any Difficulty">Any Difficulty</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
@@ -63,7 +63,7 @@ const QuizGeneration = () => {
                     </select>
 
                     <label>Type</label>
-                    <select value={type} className="dropdown" onChange={(e) => setType(e.target.value)}>
+                    <select value={type} className="Dropdown" onChange={(e) => setType(e.target.value)}>
                         <option value="Any Type">Any Type</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>

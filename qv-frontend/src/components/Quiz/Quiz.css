@@ -1,8 +1,8 @@
 
 .progressBar {
     width: 70%;
-    margin: 20px auto;
-    padding: 30px;
+    margin: 30px auto;
+    padding: 20px;
     display: flex;
     background-color: #0073CF;
     border-radius: 30px;
@@ -21,7 +21,7 @@
     background-color: #ffffff !important;
     width: 85%;
     border-radius: 30px !important;
-    height: 25px !important;
+    height: 20px !important;
     overflow: hidden !important;
     padding: 0 !important;
     margin: 0 auto;

@@ -58,7 +58,7 @@ const Quiz = () => {
         if (currentIndex + 1 < questions.length) {
             setCurrentIndex(currentIndex + 1)
         } else {
-            navigate('/result', {state: {score, total: questions.length}});
+            navigate('/result', {state: {score, total: questions.length,questions}});
         }
     };
 
