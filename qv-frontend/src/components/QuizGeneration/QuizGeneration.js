@@ -40,7 +40,7 @@ const QuizGeneration = () => {
                     numberOfQuestions: numQuestions,
                 },
             });
-            navigate('/quiz', {state: {questions: response.data, category, difficulty}});
+            navigate('/quiz', {state: {questions: response.data, category,difficulty, type}});
         } catch (err) {
             console.error('Failed to fetch quiz', err);
         }
