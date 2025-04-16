@@ -4,8 +4,6 @@ import "./Home.css"
 import axios from "axios";
 import banner from '../home/BANNER2.png';
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet"/>
-
 
 const Home = () => {
     const [category, setCategory] = useState([]);
@@ -15,7 +13,7 @@ const Home = () => {
     const navigate = useNavigate();
 
 
-// Fetch the categories from the backend
+    // Fetch the categories from the backend
     useEffect(() => {
         axios
             // GET request to fetch the categories
@@ -30,6 +28,7 @@ const Home = () => {
             });
     }, []);
 
+    //fetch quiz history from backend
     useEffect(() => {
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {
@@ -77,7 +76,6 @@ const Home = () => {
                         <h3>CATEGORIES</h3>
                         <div className="home-desc">
                             Pick a category, customize the question type, difficulty, and number of questions, then dive into your quiz!
-                            {/*<br/>Sign up to save your quiz history and keep track of your trivia triumphs.*/}
                         </div>
                         {/* Looping through the categories array and rendering each category */}
                         <div className="category-selection">

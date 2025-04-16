@@ -9,8 +9,8 @@
 }
 .dashboard-msg{
     text-align: center;
-    width: 50%;
-    margin: 0 auto;
+    width: 80%;
+    margin: 0 auto 5vh;
 }
 .dash-tab{
     min-height: 80vh;
@@ -41,6 +41,46 @@
 }
 
 
+/*dashboard quiz history*/
+.dashboard-quizHistory-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 4 categories per row */
+    gap: 2vw;
+}
+.dashboard-history{
+    background-position: center;
+    background-size: cover;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    width: 19vw;
+    height:30vh;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    position: relative;
+}
+.dashboard-history{
+    background-color: #fd752f;
+    box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.dashboard-history:hover{
+    transform: scale(1.05);
+}
+.dash-qh{
+    color: #292929;
+    font-weight: 800;
+    font-size: 2em;
+    margin: 10px auto;
+}
 @media screen and (max-width: 520px){
     .profile{
         display: flex;

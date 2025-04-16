@@ -37,7 +37,8 @@ export default function Login({ setIsLoggedIn, setUserData }) {
             setIsLoggedIn(true);
             localStorage.setItem("isLoggedIn", "true");
 
-            navigate("/dashboard");
+            // navigate to home page
+            navigate("/");
 
         } catch (err) {
             console.error("Login failed:", err);
