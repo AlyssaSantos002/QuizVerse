@@ -18,6 +18,7 @@ const Quiz = () => {
     const category = location.state?.category;
     const difficulty = location.state?.difficulty;
     const type = location.state?.type;
+    const  historyId = location.state?.historyId;
     const currentQuestion = questions[currentIndex];
 
     //To shuffle the answers
@@ -63,20 +64,48 @@ const Quiz = () => {
         }
     };
 
+    const handleQuit = () => {
+        if (window.confirm("Are you sure you want to quit? Your progress won't be saved.")) {
+            sessionStorage.removeItem('quizSubmitted'); // just in case
+            navigate("/");
+        }
+    };
+
+
     //if answer is right the score will increase by 1
     const handleAnswer = (ans) => {
         setSelectedAnswer(ans);
         setIsAnswered(true);
 
+        const updatedQuestions = [...questions];
+        updatedQuestions[currentIndex].userAnswer = ans;
+
         setTimeout(() => {
-            if (ans === currentQuestion.correct_answer) {
-                setScore(prev => prev + 1);
+            const isCorrect = ans === currentQuestion.correct_answer;
+            const nextIndex = currentIndex + 1;
+            const newScore = isCorrect ? score + 1 : score;
+
+            if (nextIndex < questions.length) {
+                setScore(newScore);
+                setCurrentIndex(nextIndex);
+                setSelectedAnswer(null);
+                setIsAnswered(false);
+            } else {
+                navigate('/result', {
+                    state: {
+                        score: newScore,
+                        total: questions.length,
+                        questions: updatedQuestions,
+                        category,
+                        difficulty,
+                        type,
+                        historyId
+                    }
+                });
             }
-            setSelectedAnswer(null);
-            setIsAnswered(false);
-            handleNext();
         }, 2000);
     };
+
     {
         console.log('Category:', category, 'Difficulty:', difficulty)
     }
@@ -107,7 +136,7 @@ const Quiz = () => {
                         </div>
 
                         <div className="bottom-container">
-                        <div className="timer-wrapper">
+                            <div className="timer-wrapper">
                                 <div className={`timer-container ${timer <= 5 ? 'danger' : ''}`}>
                                     <div className="timer-anime">
                                         <p className="timer">{timer}</p>
@@ -143,6 +172,11 @@ const Quiz = () => {
                                 </div>
                             </div>
                         </div>
+
+                        <div className="quiz-topbar">
+                            <button onClick={handleQuit} className="quit-button">Quit</button>
+                        </div>
+
                     </div>
                 )}
             </div>

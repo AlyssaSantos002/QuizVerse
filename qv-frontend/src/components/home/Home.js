@@ -34,15 +34,22 @@ const Home = () => {
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {
             const User = JSON.parse(storedUserData);
-            setUser(User)
+            setUser(User);
 
-            axios
-                .get('/api/quiz-history/' + User.id, {
-                withCredentials: true
-            })
-
+            axios.get('/api/quiz-history/' + User.id, { withCredentials: true })
                 .then((res) => {
-                    setHistory(res.data);
+                    // remove duplicates based on ID and keep only latest
+                    const seen = new Map();
+                    const latestOnly = [];
+
+                    for (const entry of res.data) {
+                        if (!seen.has(entry.id)) {
+                            seen.set(entry.id, true);
+                            latestOnly.push(entry);
+                        }
+                    }
+
+                    setHistory(latestOnly);
                 })
                 .catch((err) => {
                     console.error('Failed to fetch quiz history', err);
@@ -94,21 +101,21 @@ const Home = () => {
                     <div className="quizHistory-wrapper">
                         <h4>Quiz History</h4>
                         <div className="quizHistory-container">
-                            {history.map((entry, index) => (
-                                <div key={index} className="history"
-                                     onClick={() => navigate('/review', {state: {entry}})}>
-                                    <h4>{entry.category}</h4>
-                                    <h5>{entry.difficulty}</h5>
-                                    <p>Score {entry.score} / {entry.total}</p>
-                                    <p>Date {new Date(entry.date).toLocaleString()}</p>
-                                </div>
-                            ))}
+                            {history.length > 0 ? (
+                                history.map((entry, index) => (
+                                    <div key={index} className="history"
+                                         onClick={() => navigate('/review', { state: { entry } })}>
+                                        <h4>{entry.category}</h4>
+                                        <h5>{entry.difficulty}</h5>
+                                        <p>Score {entry.score} / {entry.total}</p>
+                                        <p>Date {new Date(entry.date).toLocaleString()}</p>
+                                    </div>
+                                ))
+                            ) : (
+                                <p>No history found.</p>
+                            )}
+
                         </div>
-                    </div>
-
-
-                    <div className="recommended-container">
-                        <h4>Explore</h4>
                     </div>
                 </div>
             </div>

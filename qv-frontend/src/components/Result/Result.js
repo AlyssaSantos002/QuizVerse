@@ -1,4 +1,4 @@
-import { useEffect} from "react";
+import {useEffect} from "react";
 import {useNavigate, useLocation} from 'react-router-dom';
 import axios from "axios";
 import "./Result.css";
@@ -11,6 +11,7 @@ const Result = () => {
     const questions = location.state?.questions;
     const {category, difficulty, type} = location.state;
     const percentage = Math.round((score / total) * 100);
+    const historyId = location.state?.historyId;
 
     const getEmoji = () => {
         if (percentage >= 90)
@@ -27,33 +28,48 @@ const Result = () => {
 
 
     const handleSubmit = () => {
+        sessionStorage.removeItem('quizSubmitted');
         navigate("/")
     }
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem('userData'));
-        if (user) {
+        const alreadySubmitted = sessionStorage.getItem('quizSubmitted');
+
+        if (user && questions && !alreadySubmitted) {
+            const formattedQuestions = questions.map(q => ({
+                question: q.question,
+                correct_answer: q.correct_answer,
+                incorrect_answers: q.incorrect_answers,
+                userAnswer: q.userAnswer || ""
+            }));
+
             const quizData = {
                 userId: user.id,
                 category,
                 difficulty,
                 type,
                 score,
-                percentage,
-                questions
+                total,
+                question: formattedQuestions
             };
 
-            axios.post('http://localhost:8080/api/quiz-history', quizData, {
-                withCredentials: true
-            })
+            const request = historyId
+                ? axios.put(`/api/quiz-history/update/${historyId}`, quizData, { withCredentials: true })
+                : axios.post('/api/quiz-history', quizData, { withCredentials: true });
+
+            request
                 .then((res) => {
-                    console.log("Quiz history saved:", res.data);
+                    console.log("Quiz history saved/updated:", res.data);
+                    sessionStorage.setItem('quizSubmitted', 'true');
                 })
                 .catch((err) => {
-                    console.error("Failed to save quiz history", err);
+                    console.error("Failed to save/update quiz history", err);
                 });
         }
     }, []);
+
+
 
     return (
         <>
@@ -89,15 +105,22 @@ const Result = () => {
                                             <div className="answers">
                                                 {allAnswers.map((ans, index) => {
                                                     const isCorrect = ans === q.correct_answer;
+                                                    const isUserAnswer = ans === q.userAnswer;
+
+                                                    let answerClass = "review-answer";
+                                                    if (isCorrect) answerClass += " correct";
+                                                    else if (isUserAnswer) answerClass += " wrong";
+
                                                     return (
                                                         <div
                                                             key={index}
-                                                            className={`review-answer ${isCorrect ? 'correct' : ''}`}
+                                                            className={answerClass}
                                                             dangerouslySetInnerHTML={{__html: ans}}
                                                         />
                                                     );
                                                 })}
                                             </div>
+
                                         </div>
                                     );
                                 })}
