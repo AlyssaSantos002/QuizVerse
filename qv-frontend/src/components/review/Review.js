@@ -1,22 +1,22 @@
-import React,{useEffect} from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-// import "./Result.css";
+import React, {useEffect} from "react";
+import {useLocation, useNavigate} from "react-router-dom";
+import "./Review.css";
 import axios from "axios";
 
 const Review = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { entry } = location.state || {};
+    const {entry} = location.state || {};
 
     useEffect(() => {
         console.log("📦 ENTRY DATA:", entry);
     }, [entry]);
 
     if (!entry || !entry.question || !Array.isArray(entry.question)) {
-        return <p style={{ textAlign: "center" }}>No quiz data available.</p>;
+        return <p style={{textAlign: "center"}}>No quiz data available.</p>;
     }
 
-    const { category, difficulty, type, score, total, question = [], id } = entry || {};
+    const {category, difficulty, type, score, total, question = [], id} = entry || {};
 
 
     const handlePlayAgain = () => {
@@ -48,32 +48,34 @@ const Review = () => {
     };
 
     return (
-        <div className="Container">
-            <div className="result-container">
-                <h4>Category: {category}</h4>
-                <h5>Difficulty: {difficulty}</h5>
-                <h5>Type: {type}</h5>
-                <h3>Score: {score} / {total}</h3>
+        <div className="qh_review-container">
+            <div className="qh-review">
+                <h4>Category : {category}</h4>
+                <h5>Difficulty : {difficulty}</h5>
+                <h5>Type : {type}</h5>
+                <h3>Score : {score} / {total}</h3>
 
-                <div className="btn">
+                <div className="qh-btn">
                     <button onClick={handlePlayAgain}>Play Again</button>
                     <button onClick={handleDelete}
                             style={{marginLeft: '10px', backgroundColor: 'crimson', color: 'white'}}>Delete
                     </button>
-                    <button onClick={() => navigate("/")} style={{marginLeft: '10px'}}>Back to Home</button>
+                    <button onClick={() => navigate("/", { replace: true })}
+                            style={{marginLeft: '10px', backgroundColor: '#0073CF', color: 'white'}}>Back to Home
+                    </button>
                 </div>
             </div>
 
             <div className="review-wrapper">
                 <div className="review-container">
-                <h1>REVIEW</h1>
+                    <h1>REVIEW</h1>
                     <div className="review-scroll">
                         {question.map((q, i) => {
                             const allAnswers = [...q.incorrect_answers, q.correct_answer].sort(() => Math.random() - 0.5);
 
                             return (
                                 <div className="review-question" key={i}>
-                                    <h5 dangerouslySetInnerHTML={{ __html: `Q${i + 1}. ${q.question}` }} />
+                                    <h5 dangerouslySetInnerHTML={{__html: `Q${i + 1}. ${q.question}`}}/>
 
                                     <div className="answers">
                                         {allAnswers.map((ans, index) => {
@@ -87,7 +89,7 @@ const Review = () => {
                                                         ${isCorrect ? 'correct' : ''}
                                                         ${isUserAnswer && !isCorrect ? 'wrong' : ''}
                                                         ${isUserAnswer ? 'selected' : ''}`}
-                                                    dangerouslySetInnerHTML={{ __html: ans }}
+                                                    dangerouslySetInnerHTML={{__html: ans}}
                                                 />
                                             );
                                         })}

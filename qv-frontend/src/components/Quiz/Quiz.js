@@ -119,7 +119,7 @@ const Quiz = () => {
                 {/*Progress Bar*/}
                 <div className="progressBar">
 
-                    <h3>{category}</h3>
+                    <h4>{category}</h4>
 
                     <ProgressBar now={progress} label={`${Math.round(progress)}%`}/>
 
@@ -141,6 +141,10 @@ const Quiz = () => {
                                     <div className="timer-anime">
                                         <p className="timer">{timer}</p>
                                     </div>
+                                </div>
+
+                                <div className="quiz-quit">
+                                    <button onClick={handleQuit} className="quit-button">Quit</button>
                                 </div>
                             </div>
 
@@ -171,10 +175,6 @@ const Quiz = () => {
 
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="quiz-topbar">
-                            <button onClick={handleQuit} className="quit-button">Quit</button>
                         </div>
 
                     </div>

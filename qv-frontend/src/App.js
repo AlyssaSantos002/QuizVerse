@@ -25,10 +25,10 @@ axios.defaults.withCredentials = true;
 function App() {
     //store user data in a useState variable
     const [userData, setUserData] = useState({
-        id:"",
-        username:"",
-        role:"",
-        avatar:""
+        id: "",
+        username: "",
+        role: "",
+        avatar: ""
     });
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
         return localStorage.getItem("isLoggedIn") === "true";
@@ -50,72 +50,76 @@ function App() {
                     // fetch user from the backend
                     const res = await axios.get(
                         `/api/user/getUser`, {
-                            params: { id: userId}
+                            params: {id: userId}
                         });
 
-                    const { id, username, role, avatar } = res.data;
+                    const {id, username, role, avatar} = res.data;
 
                     // update state and localStorage
-                    setUserData({ id, username, role, avatar });
-                    localStorage.setItem("userData", JSON.stringify({ id, username, role, avatar }));
+                    setUserData({id, username, role, avatar});
+                    localStorage.setItem("userData", JSON.stringify({id, username, role, avatar}));
                     setIsLoggedIn(true);
                     localStorage.setItem("isLoggedIn", "true");
                 } catch (err) {
                     console.error("Failed to fetch user by ID:", err);
-                    setUserData({ id: "", username: "", role: "", avatar: "" });
+                    setUserData({id: "", username: "", role: "", avatar: ""});
                     setIsLoggedIn(false);
                     localStorage.removeItem("userData");
                     localStorage.removeItem("isLoggedIn");
                 }
             } else {
                 // if no stored data
-                setUserData({ id: "", username: "", role: "", avatar: "" });
+                setUserData({id: "", username: "", role: "", avatar: ""});
                 setIsLoggedIn(false);
             }
             setIsUserDataLoaded(true); // always call this at the end
         };
         fetchUserDetailsById();
     }, []);
-  
-  return (
-      <div className="app-container">
-          <Router>
-              <NavbarComponent
-                  isLoggedIn={isLoggedIn}
-                  setIsLoggedIn={setIsLoggedIn}
-                  setUserData={setUserData}
-                  userData={userData}
-              />
-              <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/generate-quiz" element={<QuizGeneration />} />
-                  <Route path="/quiz" element={<Quiz />} />
-                  <Route path="/result" element={<Result />} />
-                  <Route path="/review" element={<Review/>} />
-                  <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserData={setUserData}/>} />
-                  <Route path="/register" element={<UserRegistration />} />
-                  <Route path="/register/admin" element={<AdminRegistration />} />
 
-                  {/* protected routes - must be logged in to access */}
-                  <Route
-                      path="/dashboard"
-                      element={
-                          // if userData has loaded go to dashboard or show loading page
-                          isUserDataLoaded ? (
-                              <RouteGuard isLoggedIn={isLoggedIn}>
-                                  <Dashboard setUserData={setUserData} userData={userData} />
-                              </RouteGuard>
-                          ) : (
-                              <div className="loading-page">Loading...</div>
-                          )
-                      }
-                  />
+    return (
+        <>
+            <div className="app-container">
+                <Router>
+                    <NavbarComponent
+                        isLoggedIn={isLoggedIn}
+                        setIsLoggedIn={setIsLoggedIn}
+                        setUserData={setUserData}
+                        userData={userData}
+                    />
+                    <Routes>
+                        <Route path="/" element={<Home/>}/>
+                        <Route path="/generate-quiz" element={<QuizGeneration/>}/>
+                        <Route path="/quiz" element={<Quiz/>}/>
+                        <Route path="/result" element={<Result/>}/>
+                        <Route path="/review" element={<Review/>}/>
+                        <Route path="/login"
+                               element={<Login setIsLoggedIn={setIsLoggedIn} setUserData={setUserData}/>}/>
+                        <Route path="/register" element={<UserRegistration/>}/>
+                        <Route path="/register/admin" element={<AdminRegistration/>}/>
 
-              </Routes>
-          </Router>
-          <FooterComponent/>
-      </div>
-  );
+                        {/* protected routes - must be logged in to access */}
+                        <Route
+                            path="/dashboard"
+                            element={
+                                // if userData has loaded go to dashboard or show loading page
+                                isUserDataLoaded ? (
+                                    <RouteGuard isLoggedIn={isLoggedIn}>
+                                        <Dashboard setUserData={setUserData} userData={userData}/>
+                                    </RouteGuard>
+                                ) : (
+                                    <div className="loading-page">Loading...</div>
+                                )
+                            }
+                        />
+
+                    </Routes>
+                </Router>
+
+            </div>
+            <FooterComponent/>
+        </>
+    );
 }
 
 export default App;
