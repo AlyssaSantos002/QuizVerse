@@ -33,7 +33,7 @@ const QuizGeneration = () => {
     };
 
     const handleSubmit = async () => {
-        if(numQuestions < 2 || numQuestions > 20){
+        if(numQuestions < 1 || numQuestions > 50){
             alert("Please enter a number of questions between 1 and 50!");
             return;
         }
