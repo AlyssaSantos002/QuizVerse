@@ -17,7 +17,7 @@ const QuizGeneration = () => {
     const getCategoryId = (categoryName) => {
         const map = {
             'Science': 17,
-            'Mathematics': 19,
+            'Math': 19,
             'History': 23,
             'Animals': 27,
             'Sports': 21,
@@ -25,7 +25,9 @@ const QuizGeneration = () => {
             'Anime & Manga': 31,
             'Books': 10,
             'Art': 25,
-            'Computers': 18
+            'Computers': 18,
+            'Video Games': 15,
+            'Movies': 11
         };
         return map[categoryName];
     };

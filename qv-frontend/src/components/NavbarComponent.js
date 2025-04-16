@@ -5,7 +5,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
-export default function NavbarComponent({isLoggedIn, setIsLoggedIn, setUserData}) {
+export default function NavbarComponent({isLoggedIn, setIsLoggedIn, setUserData, userData}) {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
@@ -37,29 +37,27 @@ export default function NavbarComponent({isLoggedIn, setIsLoggedIn, setUserData}
                         alt='Quiz Verse Logo'
                          width="150"
                          height="auto"
-                         className="d-inline-block align-bottom"/>
+                         className="d-inline-block align-content-center"/>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
                         <Nav.Link as={Link} to="/">Home</Nav.Link>
-                        <Nav.Link as={Link} to="/">Search</Nav.Link>
-                        <NavDropdown title="Menu" id="basic-nav-dropdown" align="end">
+
                             {isLoggedIn ? (
-                                <>
+                                <NavDropdown title={userData.username} id="basic-nav-dropdown" align="end">
                                     {/* if logged in - dashboard and logout shown as option */}
                                     <NavDropdown.Item as={Link} to="/dashboard">Dashboard</NavDropdown.Item>
-                                    <NavDropdown.Divider />
                                     <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
-                                </>
+                                </NavDropdown>
                             ) : (
                                 <>
                                     {/* if not logged in - Login and register shown as options*/}
-                                    <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
-                                    <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
+                                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                                    <Nav.Link as={Link} to="/register">Register</Nav.Link>
                                 </>
                             )}
-                        </NavDropdown>
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

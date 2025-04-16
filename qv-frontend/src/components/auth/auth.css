@@ -22,18 +22,17 @@
     flex-direction: row;
     min-height: 100vh;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .user-registration-msg, .login-msg{
-    padding-top: 3%;
-    flex: 2;
+    padding-top: 2%;
 }
 .user-reg-form, .login-form{
-    flex: 1;
     padding:30px 30px;
     background-color: white;
     height: clamp(500px, 100%, 700px);
-    margin: 4% 5%;
-    max-width: 400px;
+    margin: 4% 4% 3%;
+    width: 30vw;
     border-radius: 10px;
     box-shadow: 5px 5px 15px 5px rgba(3, 33, 57, 0.82);
 }
@@ -46,4 +45,8 @@
     max-height: clamp(80px, 100px, 135px);
     width: auto;
 
+}
+
+.login-msg img{
+    margin-left: auto;
 }
