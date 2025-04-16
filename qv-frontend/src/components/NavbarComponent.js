@@ -30,34 +30,15 @@ export default function NavbarComponent({isLoggedIn, setIsLoggedIn, setUserData}
     };
 
     return (
-        // <>
-        //     <Navbar bg="transparent" data-bs-theme="dark">
-        //         <Container>
-        //             <Navbar.Brand href="#home">QuizVerse</Navbar.Brand>
-        //             <Nav className="me-auto">
-        //                 <Nav.Link as={Link} to="/">Home</Nav.Link>
-        //                 <Nav.Link as={Link} to="/">Search</Nav.Link>
-        //             </Nav>
-        //             <Nav className="ms-auto">
-        //                 {isLoggedIn ? (
-        //                     <>
-        //                         <Nav.Link as={Link} to="/dashboard">Dashboard</Nav.Link>
-        //                         <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
-        //                     </>
-        //                 ) : (
-        //                     <>
-        //                         <Nav.Link as={Link} to="/login">Login</Nav.Link>
-        //                         <Nav.Link as={Link} to="/register">Register</Nav.Link>
-        //                     </>
-        //                 )}
-        //             </Nav>
-        //         </Container>
-        //     </Navbar>
-        // </>
-
         <Navbar expand="lg" className="bg-body-transparent" data-bs-theme="dark">
             <Container>
-                <Navbar.Brand as={Link} to="/">QuizVerse</Navbar.Brand>
+                <Navbar.Brand as={Link} to="/">
+                    <img src='logoNav3.png'
+                        alt='Quiz Verse Logo'
+                         width="150"
+                         height="auto"
+                         className="d-inline-block align-bottom"/>
+                </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
