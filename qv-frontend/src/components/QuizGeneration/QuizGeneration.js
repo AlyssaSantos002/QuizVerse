@@ -33,7 +33,7 @@ const QuizGeneration = () => {
     const handleSubmit = async () => {
         if(numQuestions < 2 || numQuestions > 20){
             alert("Please enter a number of questions between 2 and 20!");
-            return
+            return;
         }
 
         const difficultyParam = difficulty === "Any Difficulty" || difficulty === "" ? "" : difficulty;
@@ -66,7 +66,7 @@ const QuizGeneration = () => {
 
                     <label>Difficulty</label>
                     <select value={difficulty} className="Dropdown" onChange={(e) => setDifficulty(e.target.value)}>
-                        <option value="Any Difficulty">Any Difficulty</option>
+                        <option value="">Any Difficulty</option>
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>
@@ -74,7 +74,7 @@ const QuizGeneration = () => {
 
                     <label>Type</label>
                     <select value={type} className="Dropdown" onChange={(e) => setType(e.target.value)}>
-                        <option value="Any Type">Any Type</option>
+                        <option value="">Any Type</option>
                         <option value="multiple">Multiple Choice</option>
                         <option value="boolean">True / False</option>
                     </select>
