@@ -34,7 +34,7 @@ const QuizGeneration = () => {
 
     const handleSubmit = async () => {
         if(numQuestions < 2 || numQuestions > 20){
-            alert("Please enter a number of questions between 2 and 20!");
+            alert("Please enter a number of questions between 1 and 50!");
             return;
         }
 
@@ -88,7 +88,7 @@ const QuizGeneration = () => {
                         onChange={(e) => setNumQuestions(e.target.value)}
                         placeholder="Enter number below 20"
                         min="1"
-                        max="20"
+                        max="50"
                     />
 
                     <button onClick={handleSubmit}>Start Quiz</button>
