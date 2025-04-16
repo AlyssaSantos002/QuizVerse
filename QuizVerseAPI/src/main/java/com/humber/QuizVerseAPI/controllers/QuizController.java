@@ -4,7 +4,6 @@ package com.humber.QuizVerseAPI.controllers;
 import com.humber.QuizVerseAPI.models.Category;
 import com.humber.QuizVerseAPI.models.Quiz;
 import com.humber.QuizVerseAPI.services.QuizService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class QuizController {
     //to get the quiz questions
     @GetMapping("/quiz")
     public List<Quiz.Question> getQuizQuestions(@RequestParam int categoryId,
-                                                           @RequestParam String difficulty,
-                                                           @RequestParam String type,
+                                                @RequestParam(required = false, defaultValue = "") String difficulty,
+                                                @RequestParam(required = false, defaultValue = "") String type,
                                                            @RequestParam int numberOfQuestions) {
         return quizService.getQuizQuestions(categoryId, difficulty, type, numberOfQuestions);
     }

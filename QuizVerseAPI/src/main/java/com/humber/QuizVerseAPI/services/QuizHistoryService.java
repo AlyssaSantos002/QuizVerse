@@ -4,6 +4,7 @@ import com.humber.QuizVerseAPI.models.QuizHistory;
 import com.humber.QuizVerseAPI.repositories.QuizHistoryRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -18,6 +19,20 @@ public class QuizHistoryService {
     //to get quiz history by user id
     public List<QuizHistory> getQuizHistory(String userId) {
         return quizHistoryRepository.findByUserId(userId);
+    }
+
+    //To get quiz history by id
+    public Optional<QuizHistory> getQuizHistoryById(String id) {
+        return quizHistoryRepository.findById(id);
+    }
+
+    public boolean deleteQuizHistory(String id) {
+        Optional<QuizHistory> quizHistory = quizHistoryRepository.findById(id);
+        if (quizHistory.isPresent()) {
+            quizHistoryRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
     //saves a new quiz the user done

@@ -13,8 +13,10 @@ import Dashboard from "./components/dashboards/Dashboard";
 import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
 import Quiz from "./components/Quiz/Quiz";
 import Result from "./components/Result/Result";
+import Review from "./components/review/Review";
 
 import axios from "axios";
+
 
 axios.defaults.withCredentials = true;
 
@@ -58,6 +60,7 @@ function App() {
                   <Route path="/generate-quiz" element={<QuizGeneration />} />
                   <Route path="/quiz" element={<Quiz />} />
                   <Route path="/result" element={<Result />} />
+                  <Route path="/review" element={<Review/>} />
                   <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUserData={setUserData}/>} />
                   <Route path="/register" element={<UserRegistration />} />
                   <Route path="/register/admin" element={<AdminRegistration />} />
