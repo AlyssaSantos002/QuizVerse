@@ -17,6 +17,7 @@ const Quiz = () => {
     const questions = location.state?.questions;
     const category = location.state?.category;
     const difficulty = location.state?.difficulty;
+    const type = location.state?.type;
     const currentQuestion = questions[currentIndex];
 
     //To shuffle the answers
@@ -58,7 +59,7 @@ const Quiz = () => {
         if (currentIndex + 1 < questions.length) {
             setCurrentIndex(currentIndex + 1)
         } else {
-            navigate('/result', {state: {score, total: questions.length}});
+            navigate('/result', {state: {score, total: questions.length,questions, category, difficulty, type}});
         }
     };
 

@@ -1,46 +1,134 @@
+
+.Container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px;
+}
+
 .result-container {
-    background-color: #95AA40;
+    flex: 1;
+    background-image: linear-gradient(#008DFE, #005CA6, #0a4f81);
     padding: 30px;
-    max-width: 700px;
-    height: 55vh;
-    margin-left: auto;
+    max-width: 500px;
+    height: 70vh;
+    margin-left: 60px;
     margin-right: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     margin-top: 50px;
     gap: 20px;
     border-radius: 30px;
     box-shadow: 2px 3px 2px 3px rgba(0, 0, 0, 0.4);
 }
 
-.result {
+.review-container h1{
+    font-weight: bolder;
+    color: white;
+    font-size: 50px;
+}
+.result  {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
-.result h4, .result h2 {
+.result h5{
+    color: white;
+    margin: 20px;
+}
+
+.result h4{
+    color: white;
+    margin-top: 30px;
+}
+
+.result h2 {
     color: white;
     margin: 10px;
+    font-size: 40px;
+    font-weight: bolder;
+    text-shadow:  1px 4px 2px rgba(0, 0, 0.3, 0.4);
 }
 
 .result-container .btn {
-    display: flex;
-    justify-content: space-between;
     margin-top: 30px;
     border: none;
 }
 
 .result-container button {
     background-color: #EBA436;
-    padding: 10px 20px;
+    padding: 10px 60px;
     border: none;
     color: black;
     border-radius: 10px;
 }
+
 
 .result-container button:hover{
     border: none;
     transform: translateY(-6px);
     box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.5);
     background-color: #daa35a;
+
+.review-wrapper {
+    flex: 2;
+    width: 500px;
+    border-radius: 30px;
+    text-align: center;
+    margin-top: 50px;
+    border: 1px solid black;
+}
+
+.review-container {
+    max-height: 500px;
+    padding: 30px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.review-scroll {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.review-question {
+    max-width: 700px;
+    flex: 0 0 auto;
+    margin: 30px auto auto auto;
+    padding: 30px;
+    border-radius: 12px;
+    scroll-snap-align: start;
+    color: white;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.review-question h5{
+    margin-bottom: 40px;
+}
+.answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: lighter;
+    margin-top: 10px;
+}
+
+.review-answer {
+    padding: 12px;
+    margin: 10px;
+    background-color: #eee;
+    border-radius: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.review-answer.correct {
+    background-color: green;
+    color: white;
 }

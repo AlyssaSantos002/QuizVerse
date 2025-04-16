@@ -27,6 +27,7 @@ public class SecurityConfig {
         this.myUserDetailService = myUserDetailService;
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -34,7 +35,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         //permitAll so users and admin can log in and register
-                        .requestMatchers("/api/auth/**", "/api/quiz/**", "/api/categories/**").permitAll()
+                        .requestMatchers("/api/auth/**", "/api/quiz/**", "/api/categories/**", "/api/quiz-history/**").permitAll()
                         //only admin can access these endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         //only authenticated will be able to access these endpoints
@@ -74,3 +75,4 @@ public class SecurityConfig {
         return source;
     }
 }
+
