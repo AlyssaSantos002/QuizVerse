@@ -35,24 +35,54 @@ function App() {
 
 
     useEffect(() => {
-        const storedLogin = localStorage.getItem("isLoggedIn") === "true";
-        const storedUser = localStorage.getItem("userData");
+        const fetchUserDetailsById = async () => {
+            const storedLogin = localStorage.getItem("isLoggedIn") === "true";
+            const storedUser = localStorage.getItem("userData");
 
-        if (storedLogin && storedUser) {
-            setIsLoggedIn(true);
-            setUserData(JSON.parse(storedUser));
-        } else {
-            setIsLoggedIn(false);
-            setUserData({ id: "", username: "", role: "", avatar:"" });
-        }
+            if (storedLogin && storedUser) {
+                const parsedUser = JSON.parse(storedUser);
+                const userId = parsedUser.id;
 
-        setIsUserDataLoaded(true);
+                try {
+                    // fetch user from the backend
+                    const res = await axios.get(
+                        `/api/user/getUser`, {
+                            params: { id: userId}
+                        });
+
+                    const { id, username, role, avatar } = res.data;
+
+                    // update state and localStorage
+                    setUserData({ id, username, role, avatar });
+                    localStorage.setItem("userData", JSON.stringify({ id, username, role, avatar }));
+                    setIsLoggedIn(true);
+                    localStorage.setItem("isLoggedIn", "true");
+                } catch (err) {
+                    console.error("Failed to fetch user by ID:", err);
+                    setUserData({ id: "", username: "", role: "", avatar: "" });
+                    setIsLoggedIn(false);
+                    localStorage.removeItem("userData");
+                    localStorage.removeItem("isLoggedIn");
+                }
+            } else {
+                // if no stored data
+                setUserData({ id: "", username: "", role: "", avatar: "" });
+                setIsLoggedIn(false);
+            }
+            setIsUserDataLoaded(true); // always call this at the end
+        };
+        fetchUserDetailsById();
     }, []);
   
   return (
       <div className="app-container">
           <Router>
-              <NavbarComponent isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUserData={setUserData}/>
+              <NavbarComponent
+                  isLoggedIn={isLoggedIn}
+                  setIsLoggedIn={setIsLoggedIn}
+                  setUserData={setUserData}
+                  userData={userData}
+              />
               <Routes>
                   <Route path="/" element={<Home />} />
                   <Route path="/generate-quiz" element={<QuizGeneration />} />

@@ -17,7 +17,7 @@ const QuizGeneration = () => {
     const getCategoryId = (categoryName) => {
         const map = {
             'Science': 17,
-            'Mathematics': 19,
+            'Math': 19,
             'History': 23,
             'Animals': 27,
             'Sports': 21,
