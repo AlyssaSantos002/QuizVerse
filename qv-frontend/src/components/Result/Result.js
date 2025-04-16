@@ -1,4 +1,7 @@
+import React from "react";
+import { useEffect} from "react";
 import {useNavigate, useLocation} from 'react-router-dom';
+import axios from "axios";
 import "./Result.css";
 
 const Result = () => {
@@ -7,7 +10,7 @@ const Result = () => {
     const score = location.state?.score;
     const total = location.state?.total;
     const questions = location.state?.questions;
-
+    const {category, difficulty, type} = location.state;
     const percentage = Math.round((score / total) * 100);
 
     const getEmoji = () => {
@@ -28,6 +31,32 @@ const Result = () => {
     const handleSubmit = () => {
         navigate("/")
     }
+
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('userData'));
+        if (user) {
+            const quizData = {
+                userId: user.id,
+                category,
+                difficulty,
+                type,
+                score,
+                percentage,
+                questions
+            };
+
+            axios.post('http://localhost:8080/api/quiz-history', quizData, {
+                withCredentials: true
+            })
+                .then((res) => {
+                    console.log("Quiz history saved:", res.data);
+                })
+                .catch((err) => {
+                    console.error("Failed to save quiz history", err);
+                });
+        }
+    }, []);
+
     return (
         <>
             <div className="Container">

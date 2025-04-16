@@ -13,6 +13,9 @@ import AdminDashboard from "./components/dashboards/AdminDashboard";
 import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
 import Quiz from "./components/Quiz/Quiz";
 import Result from "./components/Result/Result";
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
 
 function App() {
     //store user data in a useState variable

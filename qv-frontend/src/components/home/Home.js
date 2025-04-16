@@ -37,7 +37,10 @@ const Home = () => {
             setUser(User)
 
             axios
-                .get(`/api/quiz-history/${User.id}`, {withCredentials: true})
+                .get('/api/quiz-history/' + User.id, {
+                withCredentials: true
+            })
+
                 .then((res) => {
                     setHistory(res.data);
                 })
