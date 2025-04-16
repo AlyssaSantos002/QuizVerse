@@ -20,9 +20,10 @@
 .user-reg-container, .login-container{
     display: flex;
     flex-direction: row;
-    min-height: 100vh;
+    /*min-height: 100vh;*/
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 }
 .user-registration-msg, .login-msg{
     padding-top: 2%;
@@ -49,4 +50,11 @@
 
 .login-msg img{
     margin-left: auto;
+}
+.login-container{
+    margin: 5vh auto;
+}
+.user-registration-msg img{
+    height: 90vh;
+    width: auto;
 }

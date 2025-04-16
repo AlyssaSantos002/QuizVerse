@@ -69,7 +69,10 @@ export default function UserRegistration() {
     return (
         <div className="user-reg-container">
             <div className="user-registration-msg">
-
+                <img
+                    src="SignUpImg.png"
+                    alt="Sign Up Image"
+                />
             </div>
             <div className="user-reg-form">
                 <h2>SIGN UP!</h2>
