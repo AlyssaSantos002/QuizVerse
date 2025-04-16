@@ -1,17 +1,17 @@
 
 .progressBar {
-    width: 70%;
-    margin: 20px auto;
-    padding: 30px;
+    width: 80%;
+    margin: 40px auto;
+    padding: 20px;
     display: flex;
     background-color: #0073CF;
     border-radius: 30px;
     color: black;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
-.progressBar h3{
+.progressBar h4{
     color: white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 
@@ -19,12 +19,12 @@
 
 .progress {
     background-color: #ffffff !important;
-    width: 85%;
+    width: 80%;
     border-radius: 30px !important;
     height: 25px !important;
     overflow: hidden !important;
     padding: 0 !important;
-    margin: 0 auto;
+    margin: 0 0 0 25px;
 }
 
 .progress-bar {
@@ -150,6 +150,19 @@
     color: black;
 }
 
+.quiz-quit{
+    margin-left: 110px;
+    margin-top: 30px;
+
+}
+
+.quiz-quit .quit-button{
+    padding: 10px 60px;
+    border-radius: 30px;
+    background-color:#FF5151;
+    color: white;
+    border: none;
+}
 
 @keyframes blinkBackground {
     0% {
