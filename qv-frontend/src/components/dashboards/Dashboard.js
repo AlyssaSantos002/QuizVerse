@@ -27,18 +27,6 @@ export default function Dashboard({setUserData, userData}) {
                                     Profile
                                 </Nav.Link>
                             </Nav.Item>
-                            {isAdmin && (
-                                <Nav.Item className="mb-3">
-                                    <Nav.Link eventKey="backlog" className="text-white">
-                                        Quiz Approval Backlog
-                                    </Nav.Link>
-                                </Nav.Item>
-                            )}
-                            {/*<Nav.Item className="mb-3">*/}
-                            {/*    <Nav.Link eventKey="qc" className="text-white">*/}
-                            {/*        Quizzes Created*/}
-                            {/*    </Nav.Link>*/}
-                            {/*</Nav.Item>*/}
                             <Nav.Item className="mb-3">
                                 <Nav.Link eventKey="qh" className="text-white">
                                     Quiz History
