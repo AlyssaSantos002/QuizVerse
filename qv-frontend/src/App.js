@@ -8,14 +8,16 @@ import UserRegistration from "./components/auth/UserRegistration";
 import AdminRegistration from "./components/auth/AdminRegistration";
 import RouteGuard from "./components/RouteGuard";
 import NavbarComponent from "./components/NavbarComponent";
-import axios from "axios";
-
-axios.defaults.withCredentials = true;
 
 import Dashboard from "./components/dashboards/Dashboard";
 import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
 import Quiz from "./components/Quiz/Quiz";
 import Result from "./components/Result/Result";
+
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+
 
 function App() {
     //store user data in a useState variable
