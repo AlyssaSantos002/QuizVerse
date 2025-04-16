@@ -25,7 +25,9 @@ const QuizGeneration = () => {
             'Anime & Manga': 31,
             'Books': 10,
             'Art': 25,
-            'Computers': 18
+            'Computers': 18,
+            'Video Games': 15,
+            'Movies': 11
         };
         return map[categoryName];
     };

@@ -1,3 +1,6 @@
+import {useEffect} from "react";
+import axios from "axios";
+
 export default function QuizHistory({userData}){
     return(
         <div className="dash-tab">

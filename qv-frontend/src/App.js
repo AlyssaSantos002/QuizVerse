@@ -8,6 +8,7 @@ import UserRegistration from "./components/auth/UserRegistration";
 import AdminRegistration from "./components/auth/AdminRegistration";
 import RouteGuard from "./components/RouteGuard";
 import NavbarComponent from "./components/NavbarComponent";
+import FooterComponent from "./components/FooterComponent";
 
 import Dashboard from "./components/dashboards/Dashboard";
 import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
@@ -109,6 +110,7 @@ function App() {
 
               </Routes>
           </Router>
+          <FooterComponent/>
       </div>
   );
 }

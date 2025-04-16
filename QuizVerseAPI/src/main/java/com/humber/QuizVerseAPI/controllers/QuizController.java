@@ -41,7 +41,9 @@ public class QuizController {
                 new Category(31, "Anime & Manga", "Anime.jpg"),
                 new Category(10, "Books", "Books.jpeg"),
                 new Category(25, "Art", "Art.jpeg"),
-                new Category(18, "Computers", "Computers.jpeg")
+                new Category(18, "Computers", "Computers.jpeg"),
+                new Category(15, "Video Games", "Games.jpeg"),
+                new Category(11, "Movies", "Movies.jpeg")
         );
     }
 

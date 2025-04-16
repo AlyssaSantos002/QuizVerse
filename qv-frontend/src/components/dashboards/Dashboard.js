@@ -34,11 +34,11 @@ export default function Dashboard({setUserData, userData}) {
                                     </Nav.Link>
                                 </Nav.Item>
                             )}
-                            <Nav.Item className="mb-3">
-                                <Nav.Link eventKey="qc" className="text-white">
-                                    Quizzes Created
-                                </Nav.Link>
-                            </Nav.Item>
+                            {/*<Nav.Item className="mb-3">*/}
+                            {/*    <Nav.Link eventKey="qc" className="text-white">*/}
+                            {/*        Quizzes Created*/}
+                            {/*    </Nav.Link>*/}
+                            {/*</Nav.Item>*/}
                             <Nav.Item className="mb-3">
                                 <Nav.Link eventKey="qh" className="text-white">
                                     Quiz History

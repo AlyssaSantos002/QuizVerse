@@ -1,5 +1,5 @@
 .dashboard{
-    margin: clamp(5px, 5vw, 40px) clamp(3px, 1vw, 30px) 30px;
+    margin: 5vh 5vw 30px;
     padding-bottom: 20vh;
 }
 .dashboard-content{
