@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import "./Home.css"
 import axios from "axios";
-import banner from '../home/BANNER.png';
+import banner from '../home/BANNER2.png';
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet"/>
 
@@ -38,22 +38,35 @@ const Home = () => {
 
                 {/*Intro Container*/}
                 <div className="intro-container">
+                    {/*<button className="circle">*/}
+                    {/*    <span>?</span>*/}
+                    {/*</button>*/}
                     <img src={banner} className="image" alt="Quiz Illustration"/>
                 </div>
 
+                {/*<div className="home-desc">*/}
+                {/*    Pick a category, customize the question type, difficulty, and number of questions, then dive into your quiz!*/}
+                {/*    Sign up to save your quiz history and keep track of your trivia triumphs.*/}
+                {/*</div>*/}
+
                 <div className="sections">
                     {/*Category Container*/}
+
                     <div className="category-container">
-                        <h4>Category</h4>
+                        <h4>CATEGORIES</h4>
                         {/* Looping through the categories array and rendering each category */}
-                        <div className="category-scroll">
+                        <div className="category-selection">
                             {category.map((item, index) => (
-                                <button className="category" key={index}
-                                        onClick={() => handleCategorySelection(item)}>
-                                    <p>{item}</p>
+                                <button
+                                    className="category"
+                                    key={index}
+                                    style={{ backgroundImage: `url(categories/${item.image})` }}
+                                    onClick={() => handleCategorySelection(item.name)}>
+                                    <p>{item.name}</p>
                                 </button>
                             ))}
                         </div>
+
                     </div>
 
                     <div className="createQuiz-container">
