@@ -34,15 +34,22 @@ const Home = () => {
         const storedUserData = localStorage.getItem('userData');
         if (storedUserData) {
             const User = JSON.parse(storedUserData);
-            setUser(User)
+            setUser(User);
 
-            axios
-                .get('/api/quiz-history/' + User.id, {
-                withCredentials: true
-            })
-
+            axios.get('/api/quiz-history/' + User.id, { withCredentials: true })
                 .then((res) => {
-                    setHistory(res.data);
+                    // remove duplicates based on ID and keep only latest
+                    const seen = new Map();
+                    const latestOnly = [];
+
+                    for (const entry of res.data) {
+                        if (!seen.has(entry.id)) {
+                            seen.set(entry.id, true);
+                            latestOnly.push(entry);
+                        }
+                    }
+
+                    setHistory(latestOnly);
                 })
                 .catch((err) => {
                     console.error('Failed to fetch quiz history', err);
@@ -86,6 +93,7 @@ const Home = () => {
                         </div>
 
                     </div>
+
                     {showHistory ? (
                         <div className="quizHistory-wrapper">
                             <h3>QUIZ HISTORY</h3>
@@ -105,8 +113,6 @@ const Home = () => {
                             </div>
                         </div>
                     ): (<> </>)}
-
-
                 </div>
             </div>
         </>

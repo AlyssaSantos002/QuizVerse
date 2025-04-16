@@ -33,18 +33,28 @@ const QuizGeneration = () => {
     };
 
     const handleSubmit = async () => {
+        if(numQuestions < 2 || numQuestions > 20){
+            alert("Please enter a number of questions between 2 and 20!");
+            return
+        }
+
+        const difficultyParam = difficulty === "Any Difficulty" || difficulty === "" ? "" : difficulty;
+        const typeParam = type === "Any Type" || type === "" ? "" : type;
+
         try {
             const response = await axios.get('/api/quiz', {
                 params: {
                     categoryId: getCategoryId(category),
-                    difficulty,
-                    type,
+                    difficulty: difficultyParam,
+                    type: typeParam,
                     numberOfQuestions: numQuestions,
                 },
             });
-            navigate('/quiz', {state: {questions: response.data, category,difficulty, type}});
+            navigate('/quiz', {state: {questions: response.data, category,difficulty: difficultyParam, type: typeParam}});
         } catch (err) {
             console.error('Failed to fetch quiz', err);
+            alert("Something went wrong, please try again.");
+            navigate("/")
         }
     };
 

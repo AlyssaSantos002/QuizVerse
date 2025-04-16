@@ -29,7 +29,7 @@ public class QuizHistory {
     private int score;
     private int total;
     private Date date = new Date();
-    private List<Quiz.Question> question;
+    private List<Question> question;
 
     //Nested class for each quiz question
     @Data
