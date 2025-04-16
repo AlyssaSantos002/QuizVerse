@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect} from "react";
 import {useNavigate, useLocation} from 'react-router-dom';
 import axios from "axios";
@@ -19,7 +18,6 @@ const Result = () => {
         if (percentage >= 70)
             return {src: "/emojis/awesome.gif", message: "Well done, smarty!"};
         if (percentage >= 50)
-
             return {src: "/emojis/notbad.gif", message: "Not bad! Keep going!"};
         if (percentage >= 30)
             return {src: "/emojis/gettingthere.gif", message: "Keep practicing - you'll get better!"};
@@ -107,8 +105,6 @@ const Result = () => {
                         </div>
                     )}
                 </div>
-
-
             </div>
 
         </>

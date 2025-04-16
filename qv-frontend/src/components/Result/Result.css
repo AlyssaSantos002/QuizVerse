@@ -1,3 +1,4 @@
+
 .Container {
     display: flex;
     justify-content: center;
@@ -64,13 +65,12 @@
     border-radius: 10px;
 }
 
-.result-container button:hover {
+
+.result-container button:hover{
     border: none;
     transform: translateY(-6px);
     box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.5);
     background-color: #daa35a;
-}
-
 
 .review-wrapper {
     flex: 2;
@@ -132,4 +132,3 @@
     background-color: green;
     color: white;
 }
-

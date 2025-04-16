@@ -51,12 +51,51 @@ public class UserService {
         return userRepository.save(newUser); // Save and return the new user
     }
 
-    //get user details
+    //update user
+    public String updateUserById(String id, MyUser updatedUser, String currentPassword) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    boolean hasChanges = false;
+                    
+                    if (updatedUser.getUsername() != null &&
+                            !updatedUser.getUsername().isBlank() &&
+                            !updatedUser.getUsername().equals(user.getUsername())) {
+                        user.setUsername(updatedUser.getUsername());
+                        hasChanges = true;
+                    }
+
+                    if (updatedUser.getAvatar() != null &&
+                            !updatedUser.getAvatar().isBlank() &&
+                            !updatedUser.getAvatar().equals(user.getAvatar())) {
+                        user.setAvatar(updatedUser.getAvatar());
+                        hasChanges = true;
+                    }
+
+                    if (updatedUser.getPassword() != null &&
+                            !updatedUser.getPassword().isBlank()) {
+                        if (currentPassword == null || !passwordEncoder.matches(currentPassword, user.getPassword())) {
+                            return "Incorrect current password.";
+                        }
+                        user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
+                        hasChanges = true;
+                    }
+
+                    if (hasChanges) {
+                        userRepository.save(user);
+                        return "success";
+                    } else {
+                        return "No changes detected.";
+                    }
+                })
+                .orElse("User not found.");
+    }
+
+    //get user details by username
     public Optional<MyUser> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-
-
-
+    public Optional<MyUser> getUserById(String id) {
+        return userRepository.findById(id);
+    }
 }

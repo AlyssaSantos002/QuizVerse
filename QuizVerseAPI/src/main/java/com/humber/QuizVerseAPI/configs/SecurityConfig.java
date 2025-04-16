@@ -34,11 +34,12 @@ public class SecurityConfig {
                 .cors(withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/categories").permitAll()
-                        .requestMatchers("/api/quiz").permitAll()
-                        .requestMatchers("/api/quiz-history/**").permitAll()
+                        //permitAll so users and admin can log in and register
+                        .requestMatchers("/api/auth/**", "/api/quiz/**", "/api/categories/**", "/api/quiz-history/**").permitAll()
+                        //only admin can access these endpoints
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        //only authenticated will be able to access these endpoints
+                        .requestMatchers("/api/user/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -70,8 +71,8 @@ public class SecurityConfig {
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/", config);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
-
 }
+

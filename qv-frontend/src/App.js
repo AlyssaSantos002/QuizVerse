@@ -1,21 +1,21 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router';
 import {useEffect, useState} from "react";
 import "./App.css";
+
 import Home from "./components/home/Home";
 import Login from "./components/auth/Login";
 import UserRegistration from "./components/auth/UserRegistration";
 import AdminRegistration from "./components/auth/AdminRegistration";
 import RouteGuard from "./components/RouteGuard";
-
-import UserDashboard from "./components/dashboards/UserDashboard";
 import NavbarComponent from "./components/NavbarComponent";
-import AdminDashboard from "./components/dashboards/AdminDashboard";
-import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
-import Quiz from "./components/Quiz/Quiz";
-import Result from "./components/Result/Result";
 import axios from "axios";
 
 axios.defaults.withCredentials = true;
+
+import Dashboard from "./components/dashboards/Dashboard";
+import QuizGeneration from "./components/QuizGeneration/QuizGeneration";
+import Quiz from "./components/Quiz/Quiz";
+import Result from "./components/Result/Result";
 
 function App() {
     //store user data in a useState variable
@@ -23,10 +23,14 @@ function App() {
         id:"",
         username:"",
         role:"",
+        avatar:""
     });
     const [isLoggedIn, setIsLoggedIn] = useState(() => {
         return localStorage.getItem("isLoggedIn") === "true";
     });
+    //makes sure that userData is loaded first
+    const [isUserDataLoaded, setIsUserDataLoaded] = useState(false);
+
 
     useEffect(() => {
         const storedLogin = localStorage.getItem("isLoggedIn") === "true";
@@ -37,11 +41,12 @@ function App() {
             setUserData(JSON.parse(storedUser));
         } else {
             setIsLoggedIn(false);
-            setUserData({ id: "", username: "", role: "" });
+            setUserData({ id: "", username: "", role: "", avatar:"" });
         }
+
+        setIsUserDataLoaded(true);
     }, []);
-
-
+  
   return (
       <div className="app-container">
           <Router>
@@ -59,12 +64,14 @@ function App() {
                   <Route
                       path="/dashboard"
                       element={
-                          <RouteGuard isLoggedIn={isLoggedIn}>
-                              {/* Admin dashboard if user is Admin else User dashboard*/}
-                              {userData.role === "ADMIN" ?
-                                  <AdminDashboard userData={userData}/> : <UserDashboard userData={userData}/>
-                              }
-                          </RouteGuard>
+                          // if userData has loaded go to dashboard or show loading page
+                          isUserDataLoaded ? (
+                              <RouteGuard isLoggedIn={isLoggedIn}>
+                                  <Dashboard setUserData={setUserData} userData={userData} />
+                              </RouteGuard>
+                          ) : (
+                              <div className="loading-page">Loading...</div>
+                          )
                       }
                   />
 
