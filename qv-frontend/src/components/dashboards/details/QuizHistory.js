@@ -5,6 +5,7 @@ import axios from "axios";
 export default function QuizHistory({userData}) {
     const [history, setHistory] = useState([]);
     const [showHistory, setShowHistory] = useState(false);
+    const navigate = useNavigate();
 
     //fetch quiz history from backend
     useEffect(() => {
