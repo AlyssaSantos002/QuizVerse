@@ -31,7 +31,7 @@ const Quiz = () => {
 
     useEffect(() => {
         setShuffledAnswers(shuffledAnswer());
-        setTimer(10);
+        setTimer(15);
     }, [currentIndex]);
 
     // Timer countdown

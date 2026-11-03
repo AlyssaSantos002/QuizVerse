@@ -69,6 +69,7 @@ public class QuizHistoryController {
         }
     }
 
+    //To delete a quiz history
     @DeleteMapping("/quiz-history/delete/{id}")
     public ResponseEntity<?> deleteHistory(@PathVariable String id) {
         boolean deleted = quizHistoryService.deleteQuizHistory(id);
